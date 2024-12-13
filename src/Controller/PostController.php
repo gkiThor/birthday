@@ -22,8 +22,25 @@ class PostController extends AbstractController
         //     'controller_name' => 'PostController',
         // ]);
         return $this->render('post/post.html.twig', [
-            'posts' => $posts,
-            'tags' => $tags,
+            'posts' => $posts
+            
+        ]);
+    }
+
+     /**
+     * @Route("/post/{id}", name="app_postId")
+     */
+    public function show($id): Response
+    {
+        include(__DIR__.'/../../data/posts.php');
+        $posts= json_decode($id);
+        dump($id);
+
+        // return $this->render('post/index.html.twig', [
+        //     'controller_name' => 'PostController',
+        // ]);
+        return $this->render('post/post.html.twig', [
+            'posts' => $posts
         ]);
     }
 }
