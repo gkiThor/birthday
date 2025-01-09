@@ -3,18 +3,45 @@
 {% block title %}Hello PostController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<div class="flex flex-col items-center w-full bg-pink-300 py-16">
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1 class="text-4xl font-bold pb-16 text-pink-950">UwU Symfony</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Eleve/Documents/PHP/php-qualite/birthday/src/Controller/PostController.php'|file_link(0) }}">src/Controller/PostController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Eleve/Documents/PHP/php-qualite/birthday/templates/post/index.html.twig'|file_link(0) }}">templates/post/index.html.twig</a></code></li>
-    </ul>
+    <div class="flex items-center space-x-2">
+        {% for category in categories %}
+            <a href="/post?category={{ category }}" class="w-full h-full text-xs {% if category == currentCategory %}bg-green-100 border-green-100{% else %}bg-pink-100 border-pink-100{% endif %} border px-3 py-2 rounded-md shadow-md">
+                {{ category|upper }}
+            </a>
+        {% endfor %}
+        {% if currentCategory != null %}
+            <a href="/post" class="w-full h-full text-xs bg-red-100 border-red-50 border px-3 py-2 rounded-md shadow-md">
+                X
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="grid grid-cols-3 gap-4 max-w-7xl w-full text-pink-950 mt-4">
+        {% for post in posts %}
+            <div class="w-full h-full bg-pink-200 border border-pink-100 p-4 rounded-lg shadow-md">
+                <a href="/post/{{ post.id }}" class="w-full h-full flex flex-col">
+                    <h2 class="text-lg font-semibold">{{ post.title }}</h2>
+                    <p class="mt-2 flex-1">{{ post.body }}</p>
+
+                    <div class="flex space-x-2 mt-8">
+                        {% for tag in post.tags %}
+                            <span class=" border border-pink-50 text-xs bg-pink-100 border border-pink-200 px-3 py-1 rounded-full">
+                            {{ tag|upper }}
+                        </span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="flex items-center mt-2 text-pink-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-heart"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                        <p class="ml-2">{{ post.reactions }}</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

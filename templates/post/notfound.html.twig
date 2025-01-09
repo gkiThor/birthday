@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block body %}
+<div class="flex flex-col items-center w-full bg-pink-300 py-16">
+    <h1 class="text-4xl font-bold pb-16 text-pink-950">Oh-Ho</h1>
+    <p>L'id {{ id }} n'existe pas</p>
+    <a href="/post" class="underline">Retour sur la page des posts</a>
+</div>
+{% endblock %}
